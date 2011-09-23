@@ -3,7 +3,7 @@ require File.expand_path('../spec_helper', File.dirname(__FILE__))
 describe 'EYCli::SmartyParser' do
   class Parser; extend EYCli::SmartyParser; end
 
-  it "parse the entities in a recursive mode" do
+  it "parses the entities in a recursively" do
     out = Parser.smarty({'account' => {'id' => 1}})
 
     out['account'].should be_instance_of(EYCli::Model::Account)
