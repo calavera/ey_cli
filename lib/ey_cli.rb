@@ -9,10 +9,10 @@ module EYCli
   require 'ey_cli/cli'
   require 'ey_cli/smarty_parser'
 
-  require 'ey_cli/model/base'
-  require 'ey_cli/model/account'
-  require 'ey_cli/model/app'
-  require 'ey_cli/model/environment'
+  require 'ey_cli/models/base'
+  require 'ey_cli/models/account'
+  require 'ey_cli/models/app'
+  require 'ey_cli/models/environment'
 
   def self.api(endpoint = nil)
     @api ||= Api.new(endpoint)
