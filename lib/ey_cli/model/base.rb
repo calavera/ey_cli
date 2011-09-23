@@ -15,7 +15,7 @@ module EYCli
 
       def self.find_by_name(name)
         # FIXME: EY api doesn't have filters. Let's do it by hand.
-        all.select {|a| a.name == name }.first
+        all.select {|a| a.name == name }.first || raise(Faraday::Error::ResourceNotFound, all)
       end
 
       def self.base_path(path = "#{class_name}s") # HAX: pluralize!
@@ -26,7 +26,7 @@ module EYCli
         self.name.split('::').last.downcase
       end
 
-      def self.resolve_child_path(*args)
+      def self.resolve_child_path(args)
         collection_path = base_path % args[0..-1]
         "#{collection_path}/#{args.last}"
       end
