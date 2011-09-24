@@ -21,7 +21,7 @@ module EYCli
     end
 
     def options_parser
-      OptionParser.new do |opts|
+      ::OptionParser.new do |opts|
         opts.banner = 'ey_cli options:'
         opts.separator ' '
 
