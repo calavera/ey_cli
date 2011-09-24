@@ -7,6 +7,7 @@ PATH
       faraday_middleware
       hashie
       highline
+      json
       multi_json
 
 GEM
@@ -25,6 +26,7 @@ GEM
       faraday (~> 0.7.3)
     hashie (1.0.0)
     highline (1.6.2)
+    json (1.6.0)
     multi_json (1.0.3)
     multipart-post (1.1.3)
     rack (1.3.3)

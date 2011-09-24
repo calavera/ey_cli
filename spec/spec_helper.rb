@@ -3,7 +3,6 @@ require 'rspec'
 $LOAD_PATH << '../lib'
 require 'ey_cli'
 require 'webmock/rspec'
-require 'multi_json'
 require 'stringio'
 
 

@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   s.add_dependency('faraday-stack')
   s.add_dependency('highline')
   s.add_dependency('hashie')
+  s.add_dependency('json')
   s.add_dependency('multi_json')
 
   ## List your development dependencies here. Development dependencies are

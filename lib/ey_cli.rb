@@ -2,6 +2,8 @@ module EYCli
   VERSION = '0.1.0'
 
   require 'hashie/mash'
+  require 'json'
+  require 'multi_json'
 
   require 'ey_cli/api'
   require 'ey_cli/cli'
