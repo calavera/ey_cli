@@ -8,9 +8,10 @@ module EYCli
           accounts = EYCli::Model::Account.all
           return accounts.first if accounts.empty? || accounts.size == 1
 
-          EYCli.term.choose_resource(accounts,
-                                   'Please select an account:',
-                                    "I don't know which account you want to use.")
+          name = EYCli.term.choose_resource(accounts,
+                  "I don't know which account you want to use.",
+                  'Please select an account:')
+          EYCli::Model::Account.find_by_name(name, accounts)
         end
       end
     end

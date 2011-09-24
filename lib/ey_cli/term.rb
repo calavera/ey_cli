@@ -32,5 +32,13 @@ module EYCli
     def success(message)
       terminal.say(%Q{<%= color("#{message}", :debug)%>})
     end
+
+    def print_errors(errors, message)
+      error(message)
+      errors.each do |key, value|
+        alert = value.respond_to?(:join) ? value.join(',') : value.inspect
+        error("\t- #{key}: #{alert}")
+      end
+    end
   end
 end

@@ -18,6 +18,10 @@ module EYCli
   require 'ey_cli/models/environment'
 
   require 'ey_cli/controllers/accounts'
+  require 'ey_cli/controllers/apps'
+
+  require 'ey_cli/commands/base'
+  require 'ey_cli/commands/create_app'
 
   def self.api(endpoint = nil)
     @api ||= Api.new(endpoint)

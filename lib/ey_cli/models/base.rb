@@ -13,9 +13,9 @@ module EYCli
         parse resp.body[class_name]
       end
 
-      def self.find_by_name(name)
+      def self.find_by_name(name, collection = all)
         # FIXME: EY api doesn't have filters. Let's do it by hand.
-        all.select {|a| a.name == name }.first || raise(Faraday::Error::ResourceNotFound, all)
+        collection.select {|a| a.name == name }.first || raise(Faraday::Error::ResourceNotFound, collection)
       end
 
       def self.base_path(path = "#{class_name}s") # HAX: pluralize!
