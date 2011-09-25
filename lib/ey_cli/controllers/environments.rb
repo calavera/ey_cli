@@ -16,6 +16,7 @@ module EYCli
         else
           EYCli.term.success('Environment created successfully')
         end
+        env
       end
     end
   end
