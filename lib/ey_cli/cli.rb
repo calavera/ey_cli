@@ -1,11 +1,7 @@
 module EYCli
   class CLI
-    def initialize
-      @command_manager = CommandManager.new
-    end
-
     def run(args)
-      command = @command_manager[args.shift.downcase]
+      command = EYCli.command_manager[args.shift.downcase]
       unless command
         # command not found
       else

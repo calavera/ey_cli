@@ -10,7 +10,7 @@ module EYCli
     end
 
     def choose_resource(collection, message, prompt)
-      terminal.say(message)
+      say(message)
 
       terminal.choose do |menu|
         menu.index = :number
@@ -19,6 +19,10 @@ module EYCli
 
         menu.choices collection.map {|resource| resource.name}
       end
+    end
+
+    def say(message)
+      terminal.say(message)
     end
 
     def error(message)

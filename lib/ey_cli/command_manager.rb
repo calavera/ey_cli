@@ -3,6 +3,8 @@ module EYCli
     attr_reader :commands
     def initialize
       @commands = {}
+      register_command :help
+      register_command :create_app
     end
 
     def register_command(name)
@@ -17,8 +19,8 @@ module EYCli
 
     def load_command(name)
       const_name = name.to_s.capitalize.gsub(/_(.)/) { $1.upcase }
-      if EYCli::Commands.const_defined?(const_name)
-        EYCli::Commands.const_get(const_name).new
+      if EYCli::Command.const_defined?(const_name)
+        EYCli::Command.const_get(const_name).new
         # TODO: else require and retry (PLUGINS)
       end
     end

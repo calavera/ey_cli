@@ -23,6 +23,7 @@ module EYCli
 
   require 'ey_cli/commands/base'
   require 'ey_cli/commands/create_app'
+  require 'ey_cli/commands/help'
 
   def self.api(endpoint = nil)
     @api ||= Api.new(endpoint)
@@ -30,5 +31,9 @@ module EYCli
 
   def self.term(input = $stdin, output = $stdout)
     @ui ||= Term.new(input, output)
+  end
+
+  def self.command_manager
+    @command_manager ||= EYCli::CommandManager.new
   end
 end

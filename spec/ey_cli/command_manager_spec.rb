@@ -1,6 +1,6 @@
 require File.expand_path('../spec_helper', File.dirname(__FILE__))
 
-module EYCli::Commands
+module EYCli::Command
   class MockCommand; end
 end
 
@@ -16,7 +16,7 @@ describe EYCli::CommandManager do
   end
 
   it "returns an instance of the command class if it's registered" do
-    subject[:mock_command].should be_instance_of(EYCli::Commands::MockCommand)
+    subject[:mock_command].should be_instance_of(EYCli::Command::MockCommand)
   end
 
   it "returns nil if the command class is not defined" do
@@ -27,7 +27,7 @@ describe EYCli::CommandManager do
   it "only loads the command class once" do
     subject.should_receive(:load_command).
             with(:mock_command).
-            once.and_return(EYCli::Commands::MockCommand.new)
+            once.and_return(EYCli::Command::MockCommand.new)
     subject[:mock_command] || subject[:mock_command]
   end
 end
