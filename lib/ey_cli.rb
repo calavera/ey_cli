@@ -20,6 +20,7 @@ module EYCli
 
   require 'ey_cli/controllers/accounts'
   require 'ey_cli/controllers/apps'
+  require 'ey_cli/controllers/environments'
 
   require 'ey_cli/commands/base'
   require 'ey_cli/commands/create_app'

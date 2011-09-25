@@ -12,7 +12,7 @@ module EYCli
       end
 
       def help
-        # TODO: print help stuff
+        "Create applications"
       end
     end
   end

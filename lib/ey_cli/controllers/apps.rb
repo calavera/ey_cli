@@ -17,6 +17,7 @@ module EYCli
           else
             EYCli.term.success("App created successfully")
           end
+          app
         else
           EYCli.term.error("Not a git repository: #{base}")
         end

@@ -31,10 +31,23 @@ module EYCli
         "#{collection_path}/#{args.last}"
       end
 
+      def self.create(hash)
+        path = create_path(hash)
+
+        response = EYCli.api.post(path, nil, hash)
+        new response.body[class_name]
+      rescue Faraday::Error::ClientError => e
+        new MultiJson.decode(e.response[:body])
+      end
+
       # Overrides Hashie::Mash#convert_value to not convert already parsed Mashes again
       def convert_value(val, duping=false) #:nodoc:
         return val.dup if val.is_a?(Hashie::Mash)
         super(val, duping)
+      end
+
+      def self.create_path(hash)
+        raise "Not implemented. Override this method for each model"
       end
     end
   end
