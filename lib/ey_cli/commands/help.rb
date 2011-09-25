@@ -4,16 +4,30 @@ module EYCli
 
       def invoke
         if name = options[:command_name]
-          command = EYCli.command_manager[name]
-          command_help = command.help
-          if command_help
-            EYCli.term.say(command.help)
+          if name == 'commands'
+            print_commands
           else
-            EYCli.term.say("help not available for command: '#{name}'")
+            print_command_help(name)
           end
         else
           EYCli.term.say(help)
         end
+      end
+
+      def print_command_help(name)
+        command = EYCli.command_manager[name]
+        command_help = command.help
+        if command_help
+          EYCli.term.say(command.help)
+        else
+          EYCli.term.say("help not available for command: '#{name}'")
+        end
+      end
+
+      def print_commands
+        EYCli.term.say("available commands:")
+        command_names = EYCli.command_manager.commands.keys.map {|name| "- #{name}"}.sort
+        EYCli.term.say("\t" + command_names.join("\n\t"))
       end
 
       def options_parser
