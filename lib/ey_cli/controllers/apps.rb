@@ -1,10 +1,12 @@
 module EYCli
   module Controller
     class Apps
+      include EYCli::GitUtils
+
       def create(account, base = Dir.pwd)
         if File.exist?(File.join(base, '.git'))
           app = EYCli::Model::App.create({
-            :account         => account,
+            :account               => account,
             'app[name]'            => File.basename(base),
             'app[app_type_id]'     => fetch_type(base).to_s,
             'app[repository_uri]'  => fetch_repository(base)
@@ -30,10 +32,6 @@ module EYCli
         else # Raise unkown application type?
           :rails3
         end
-      end
-
-      def fetch_repository(base)
-        `git config -f #{base}/.git/config --get-regexp 'remote.origin.url'`.split.last
       end
     end
   end
