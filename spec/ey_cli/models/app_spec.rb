@@ -18,7 +18,7 @@ describe EYCli::Model::App do
       app.errors.keys.should include('name')
     end
 
-    it "returns the new app when it succeed" do
+    it "returns the new app when it's successful" do
       account = EYCli::Model::Account.new({:id => 1})
       expected = EYCli::Model::App.new({:id => 1, :name => 'foo'})
       stub_request(:post, 'http://example.com/accounts/1/apps?app[name]=foo').

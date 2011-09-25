@@ -3,8 +3,8 @@ require 'rspec'
 $LOAD_PATH << '../lib'
 require 'ey_cli'
 require 'webmock/rspec'
+require 'fakefs/spec_helpers'
 require 'stringio'
-
 
 # Setup for specs
 
@@ -20,6 +20,8 @@ RSpec.configure do |config|
     $stdin_test = StringIO.new
     $stdout_test = StringIO.new
   end
+
+  config.include FakeFS::SpecHelpers
 end
 
 # Helper methods
