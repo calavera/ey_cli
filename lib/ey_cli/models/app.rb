@@ -10,6 +10,10 @@ module EYCli
         new MultiJson.decode(e.response[:body])
       end
 
+      def self.find_by_repository_uri(repository_uri, collection = all)
+        collection.find {|resource| resource.repository_uri == repository_uri}
+      end
+
       private
       def self.create_path(hash)
         account = hash.delete(:account)

@@ -61,4 +61,37 @@ describe EYCli::Controller::Apps do
       subject.create(account, 'fake_app')
     end
   end
+
+  context '#fetch_app' do
+    let(:app1) { EYCli::Model::App.new(:id => 1, :repository_uri => 'git@foo.com', :name => 'foo_app') }
+    let(:app2) { EYCli::Model::App.new(:id => 2, :repository_uri => 'git@bar.com', :name => 'bar_app') }
+
+    it 'returns the first app if the user only has one' do
+      stub_request(:get, 'http://example.com/apps').
+        to_return(:status => 200, :body => to_json(:apps => [app1]))
+      subject.fetch_app.should == app1
+    end
+
+    it 'returns the first app that matches the name passed as an option' do
+      stub_request(:get, 'http://example.com/apps').
+        to_return(:status => 200, :body => to_json(:apps => [app1, app2]))
+      subject.fetch_app(nil, {:app_name => 'bar_app'}).should == app2
+    end
+
+    it 'returns the first app that matches the git repository uri of the base path' do
+      stub_request(:get, 'http://example.com/apps').
+        to_return(:status => 200, :body => to_json(:apps => [app1, app2]))
+      subject.should_receive(:git_repository?).and_return(true)
+      subject.should_receive(:fetch_repository).and_return('git@bar.com')
+
+      subject.fetch_app.should == app2
+    end
+
+    it 'returns the app according to the option the user chooses' do
+      stub_request(:get, 'http://example.com/apps').
+        to_return(:status => 200, :body => to_json(:apps => [app1, app2]))
+      EYCli.term.should_receive(:choose_resource).and_return('bar_app')
+      subject.fetch_app.should == app2
+    end
+  end
 end

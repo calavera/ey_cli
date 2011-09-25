@@ -17,7 +17,9 @@ module EYCli
         menu.index_suffix = ' ~> '
         menu.prompt = prompt
 
-        menu.choices collection.map {|resource| resource.name}
+        collection.each do |resource|
+          menu.choice resource.name
+        end
       end
     end
 

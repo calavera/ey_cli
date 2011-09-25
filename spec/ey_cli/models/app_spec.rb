@@ -27,5 +27,24 @@ describe EYCli::Model::App do
       app = EYCli::Model::App.create({:account => account, 'app[name]' => 'foo'})
       app.should == expected
     end
+
+    context '.find_by_repository_uri' do
+      let(:app1) { EYCli::Model::App.new(:id => 1, :repository_uri => 'git@foo.com') }
+      let(:app2) { EYCli::Model::App.new(:id => 2, :repository_uri => 'git@bar.com') }
+      before do
+        stub_request(:get, 'http://example.com/apps').
+          to_return(:status => 200, :body => to_json(:apps => [app1, app2]))
+      end
+
+      it "returns an instance of App if it finds it" do
+        app = EYCli::Model::App.find_by_repository_uri('git@bar.com')
+        app.should == app2
+      end
+
+      it "returns nil when it cannot find the app" do
+        app = EYCli::Model::App.find_by_repository_uri('foo@bar.com')
+        app.should be_nil
+      end
+    end
   end
 end
