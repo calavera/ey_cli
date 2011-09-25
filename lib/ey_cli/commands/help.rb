@@ -3,22 +3,18 @@ module EYCli
     class Help < Base
 
       def invoke
-        if name = options[:command_name]
-          if name == 'commands'
-            print_commands
-          else
-            print_command_help(name)
-          end
+        name = options[:command_name] || 'help'
+        if name == 'commands'
+          print_commands
         else
-          EYCli.term.say(help)
+          print_command_help(name)
         end
       end
 
       def print_command_help(name)
         command = EYCli.command_manager[name]
-        command_help = command.help
-        if command_help
-          EYCli.term.say(command.help)
+        if command_help = (command and command.help)
+          EYCli.term.say(command_help)
         else
           EYCli.term.say("help not available for command: '#{name}'")
         end
