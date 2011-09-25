@@ -5,7 +5,7 @@ module EYCli
       when Hash
         klass.new smarty(body)
       when Array
-        body.map { |item| parse(item) }
+        body.map { |item| parse(item, klass) }
       else
         body
       end

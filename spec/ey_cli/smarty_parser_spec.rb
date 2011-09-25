@@ -10,9 +10,10 @@ describe 'EYCli::SmartyParser' do
   end
 
   it "does not override other instances" do
-    out = Parser.smarty({'app'=> {'account' => {}}})
+    out = Parser.smarty({'app'=> {'account' => {}, 'environments' => [{}]}})
 
     out['app'].should be_instance_of(EYCli::Model::App)
     out['app'].account.should be_instance_of(EYCli::Model::Account)
+    out['app'].environments.first.should be_instance_of(EYCli::Model::Environment)
   end
 end
