@@ -12,7 +12,11 @@ module EYCli
       end
 
       def help
-        "Create applications"
+        <<-EOF
+
+Usage: ey_cli create_app
+Note: it takes its arguments(name, git repository and application type) from the base directory.
+EOF
       end
     end
   end

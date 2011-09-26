@@ -12,7 +12,11 @@ module EYCli
       end
 
       def help
-        "Create environments"
+        <<-EOF
+
+Usage: ey_cli create_env
+Note: it takes the information from the current directory. It will guide you if it cannot reach all that information.
+EOF
       end
     end
   end

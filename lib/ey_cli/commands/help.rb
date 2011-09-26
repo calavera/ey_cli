@@ -32,8 +32,23 @@ module EYCli
 
       def help
         <<-EOF
-run `ey_cli help commands' to see the list of available commands
-run `ey_cli help [COMMAND_NAME]' to see the help for a specific command
+
+Usage: ey_cli command [args]
+Try `ey_cli help commands' to list the available commands.
+Try `ey_cli help [command]' for more information about a command.
+
+Currently available commands:
+
+  General info
+    accounts                     List the accounts associated to a user.
+    help                         Show commands information.
+
+  Applications
+    create_app                   Create a new application. It takes the information from the current directory.
+
+  Environments
+    create_env                   Create a new environment for an application.
+    deploy                       Run a deploy for an application.
 EOF
       end
 

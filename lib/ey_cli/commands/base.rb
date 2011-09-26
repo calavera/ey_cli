@@ -3,7 +3,7 @@ module EYCli
     class Base
       attr_reader :options
 
-      def run(args)
+      def run(args = [])
         @options = options_parser.parse(args)
         invoke
       end
