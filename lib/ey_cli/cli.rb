@@ -1,9 +1,14 @@
 module EYCli
   class CLI
     def run(args)
-      command = EYCli.command_manager[args.shift.downcase]
+      name = args.shift.downcase
+      command = EYCli.command_manager[name]
       unless command
-        # command not found
+        EYCli.term.say <<-EOF
+
+Command not available: '#{name}'
+Try running `ey_cli help' to get more information about the available commands.
+EOF
       else
         command.run(args)
       end
