@@ -19,7 +19,10 @@ module EYCli
           'deployment[ref]'             => options[:ref] || deployment_options.ref || 'HEAD'
         }
 
-        EY.api.post(path, nil, post_params)
+        response = EY.api.post(path, nil, post_params)
+        Hashie::Mash.new response['deployment']
+      rescue Faraday::Error::ClientError => e
+        Hashie::Mash.new MultiJson.decode(e.response[:body])
       end
     end
   end

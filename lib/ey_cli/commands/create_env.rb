@@ -7,7 +7,7 @@ module EYCli
       end
 
       def invoke
-        app = @apps.fetch_account(nil, options)
+        app = @apps.fetch_app(nil, options)
         @environments.create(app, options)
       end
 
