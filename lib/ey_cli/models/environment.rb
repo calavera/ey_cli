@@ -9,6 +9,18 @@ module EYCli
         base_path % app.id
       end
 
+      def deploy(app, options = {})
+        path = "#{self.class.resolve_child_path([app.id, id])}/deploy"
+        deployment_options = deployment_configurations[app.name]
+
+        post_params = {
+          'deployment[migrate]'         => options[:migrate] || deployment_options.migrate.perform,
+          'deployment[migrate_command]' => options[:migrate_command] || deployment_options.migrate.command,
+          'deployment[ref]'             => options[:ref] || deployment_options.ref || 'HEAD'
+        }
+
+        EY.api.post(path, nil, post_params)
+      end
     end
   end
 end
