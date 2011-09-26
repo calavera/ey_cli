@@ -1,1 +1,5 @@
-# FIXME
+#!/usr/bin/env ruby
+
+require 'ey_cli'
+
+EYCli::CLI.new.run(ARGV)
