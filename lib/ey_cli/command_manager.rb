@@ -3,15 +3,13 @@ module EYCli
     attr_reader :commands
     def initialize
       @commands = {}
-      register_command :accounts
-      register_command :create_app
-      register_command :create_env
-      register_command :deploy
-      register_command :help
+      register_command :accounts, :create_app, :create_env, :deploy, :help
     end
 
-    def register_command(name)
-      commands[name] = false
+    def register_command(*names)
+      names.each do | name |
+        commands[name] = false
+      end
     end
 
     def [](name)
