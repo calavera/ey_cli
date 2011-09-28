@@ -8,23 +8,51 @@ module EYCli
 
     def initialize(endpoint = nil)
       @endpoint = endpoint || 'https://cloud.engineyard.com/api/v2/'
-      @api_token = read_token # FIXME: Ask login and password the first time
     end
 
     def read_token(file = nil)
       file ||= ENV['EYRC'] || File.expand_path("~/.eyrc")
-      return false unless File.exists?(file)
+      return nil unless File.exists?(file)
 
-      data = YAML.load_file(file)
-      data["api_token"] if data
+      if data = YAML.load_file(file)
+        (data[endpoint] && data[endpoint]['api_token']) || data['api_token']
+      end
+    end
+
+    def fetch_token(times = 3)
+      EYCli.term.say("I don't know who you are, please log in with your Engine Yard Cloud credentials.")
+      begin
+        email    = EYCli.term.ask("Email: ")
+        password = EYCli.term.ask("Password: ", true)
+
+        response = post("authenticate", nil, { :email => email, :password => password }, {}, false)
+        save_token(response.body['api_token'])
+      rescue Faraday::Error::ClientError
+        EYCli.term.warning "Invalid username or password; please try again."
+        if (times -= 1) > 0
+          retry
+        else
+          exit 1
+        end
+      end
+    end
+
+    def save_token(token, file = nil)
+      file ||= ENV['EYRC'] || File.expand_path("~/.eyrc")
+
+      data = File.exists?(file) ? YAML.load_file(file) : {}
+      data[endpoint] = {"api_token" => token}
+
+      File.open(file, "w"){|f| YAML.dump(data, f) }
+      token
     end
 
     def get(path, params = {}, headers = {})
       request(path, {:method => :get}.merge(params), headers)
     end
 
-    def post(path, body, params = {}, headers = {})
-      request(path, {:method => :post, :body => body}.merge(params), headers)
+    def post(path, body, params = {}, headers = {}, auth = true)
+      request(path, {:method => :post, :body => body}.merge(params), headers, auth)
     end
 
     def put(path, body, params = {}, headers = {})
@@ -35,7 +63,7 @@ module EYCli
       request(path, {:method => :delete}.merge(params), headers)
     end
 
-    def request(path, params = {}, headers = {})
+    def request(path, params = {}, headers = {}, auth = true)
       http_method = params.delete(:method).to_s.downcase
       http_body   = params.delete(:body)
 
@@ -44,7 +72,9 @@ module EYCli
         req.params.merge! params
         req.headers.merge! headers
 
-        req.headers["X-EY-Cloud-Token"] = @api_token
+       if auth
+          req.headers["X-EY-Cloud-Token"] = read_token || fetch_token
+        end
         req.body = http_body if http_body
       end
     end

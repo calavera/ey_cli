@@ -46,5 +46,13 @@ module EYCli
         error("\t- #{key}: #{alert}")
       end
     end
+
+    def ask(prompt, protected_filed = false)
+      if protected_filed
+        terminal.ask(prompt) {|q| q.echo = '*'}
+      else
+        terminal.ask(prompt) {|q| q.readline = true}
+      end
+    end
   end
 end
