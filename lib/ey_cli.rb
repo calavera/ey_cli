@@ -23,11 +23,11 @@ module EYCli
   require 'ey_cli/controllers/environments'
 
   require 'ey_cli/commands/base'
-  require 'ey_cli/commands/create_app'
-  require 'ey_cli/commands/help'
   require 'ey_cli/commands/accounts'
+  require 'ey_cli/commands/create_app'
   require 'ey_cli/commands/create_env'
   require 'ey_cli/commands/deploy'
+  require 'ey_cli/commands/help'
 
   def self.api(endpoint = nil)
     @api ||= Api.new(endpoint)
