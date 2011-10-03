@@ -41,6 +41,7 @@ Currently available commands:
 
   General info
     accounts                     List the accounts associated to a user.
+    console                      Start an interactive session to use ey_cli.
     help                         Show commands information.
 
   Applications
