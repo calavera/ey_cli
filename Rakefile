@@ -62,6 +62,7 @@ end
 #
 #############################################################################
 
+desc "release a new version of ey_cli, tag the version and push the gem"
 task :release => :build do
   unless `git branch` =~ /^\* master$/
     puts "You must be on the master branch to release!"
@@ -71,15 +72,22 @@ task :release => :build do
   sh "git tag v#{version}"
   sh "git push origin master"
   sh "git push --tags"
-  sh "gem push pkg/#{name}-#{version}.gem"
+  sh "gem push pkg/#{gem_file}"
 end
 
+desc "install ey_cli gem in this box"
+task :install => :build do
+  sh "gem install pkg/#{gem_file}"
+end
+
+desc "build ey_cli gem"
 task :build => 'gemspec' do
   sh "mkdir -p pkg"
   sh "gem build #{gemspec_file}"
   sh "mv #{gem_file} pkg"
 end
 
+desc "generate a valid gemspec file"
 task :gemspec => :validate do
   # read spec file and split out manifest section
   spec = File.read(gemspec_file)

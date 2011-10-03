@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'ey_cli'
   s.version           = '0.1.0'
-  s.date              = '2011-09-23'
+  s.date              = '2011-10-03'
   s.rubyforge_project = 'ey_cli'
 
   ## Make sure your summary is short. The description may be as long
@@ -65,19 +65,43 @@ Gem::Specification.new do |s|
   s.files = %w[
     Gemfile
     Gemfile.lock
+    LICENSE
+    README.md
     Rakefile
     bin/ey_cli
     ey_cli.gemspec
     lib/ey_cli.rb
     lib/ey_cli/api.rb
     lib/ey_cli/cli.rb
-    lib/ey_cli/model/account.rb
-    lib/ey_cli/model/app.rb
-    lib/ey_cli/model/base.rb
-    lib/ey_cli/model/environment.rb
+    lib/ey_cli/command_manager.rb
+    lib/ey_cli/commands/accounts.rb
+    lib/ey_cli/commands/base.rb
+    lib/ey_cli/commands/console.rb
+    lib/ey_cli/commands/create_app.rb
+    lib/ey_cli/commands/create_env.rb
+    lib/ey_cli/commands/deploy.rb
+    lib/ey_cli/commands/help.rb
+    lib/ey_cli/controllers/accounts.rb
+    lib/ey_cli/controllers/apps.rb
+    lib/ey_cli/controllers/environments.rb
+    lib/ey_cli/git_utils.rb
+    lib/ey_cli/models/account.rb
+    lib/ey_cli/models/app.rb
+    lib/ey_cli/models/base.rb
+    lib/ey_cli/models/environment.rb
     lib/ey_cli/options_parser.rb
     lib/ey_cli/smarty_parser.rb
-    spec/ey_cli/model/base_spec.rb
+    lib/ey_cli/term.rb
+    spec/auth_helper.rb
+    spec/ey_cli/api_spec.rb
+    spec/ey_cli/command_manager_spec.rb
+    spec/ey_cli/commands/help_spec.rb
+    spec/ey_cli/controllers/accounts_spec.rb
+    spec/ey_cli/controllers/apps_spec.rb
+    spec/ey_cli/controllers/environments_spec.rb
+    spec/ey_cli/models/app_spec.rb
+    spec/ey_cli/models/base_spec.rb
+    spec/ey_cli/models/environment_spec.rb
     spec/ey_cli/options_parser_spec.rb
     spec/ey_cli/smarty_parser_spec.rb
     spec/spec_helper.rb
