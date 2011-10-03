@@ -10,7 +10,7 @@ module EYCli
       end
 
       def deploy(app, options = {})
-        path = "#{self.class.resolve_child_path([app.id, id])}/deploy"
+        path = "#{self.class.resolve_child_path([app.id, id])}/deployments/deploy"
         deployment_options = deployment_configurations[app.name]
 
         post_params = {

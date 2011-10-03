@@ -39,7 +39,7 @@ module EYCli
         if account
           # search for account. Should we really care?
         else
-          all_apps = EYCli::Model::App.all
+          all_apps = fetch_apps
           return all_apps.first if all_apps.empty? || all_apps.size == 1
 
           app = if options[:app_name]
@@ -50,12 +50,16 @@ module EYCli
 
           unless app
             choice = EYCli.term.choose_resource(all_apps,
-                                       "I don't know which app you want to create the environment for.",
+                                       "I don't know which app you want to use.",
                                        "Please, select an application:")
             app = EYCli::Model::App.find_by_name(choice, all_apps)
           end
           app
         end
+      end
+
+      def fetch_apps
+        EYCli::Model::App.all.sort_by {|app| app.name}
       end
     end
   end

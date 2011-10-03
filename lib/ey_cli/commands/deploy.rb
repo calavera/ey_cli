@@ -3,7 +3,7 @@ module EYCli
     class Deploy < Base
       def initialize
         @apps = EYCli::Controller::Apps.new
-        @environments = EYCli::Controller::Environment.new
+        @environments = EYCli::Controller::Environments.new
       end
 
       def invoke
