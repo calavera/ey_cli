@@ -20,7 +20,7 @@ module EYCli
       end
 
       def deploy(app, options = {})
-        if app.environments.empty?
+        if !app.environments? || app.environments.empty?
           EYCli.term.error <<-EOF
 You don't have any environment associated to this application.
 Try running `ey_cli create_env' to create your first environment.

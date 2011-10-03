@@ -14,12 +14,12 @@ module EYCli
         deployment_options = deployment_configurations[app.name]
 
         post_params = {
-          'deployment[migrate]'         => options[:migrate] || deployment_options.migrate.perform,
+          'deployment[migrate]'         => options.key?(:migrate) ? options[:migrate] : deployment_options.migrate.perform,
           'deployment[migrate_command]' => options[:migrate_command] || deployment_options.migrate.command,
           'deployment[ref]'             => options[:ref] || deployment_options.ref || 'HEAD'
         }
 
-        response = EY.api.post(path, nil, post_params)
+        response = EYCli.api.post(path, nil, post_params)
         Hashie::Mash.new response['deployment']
       rescue Faraday::Error::ClientError => e
         Hashie::Mash.new MultiJson.decode(e.response[:body])

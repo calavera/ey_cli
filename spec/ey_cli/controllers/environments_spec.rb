@@ -49,4 +49,49 @@ describe EYCli::Controller::Environments do
       response.should == env
     end
   end
+
+  context "deploying an environment" do
+    it "shows an error if the application doesn't have any environment" do
+      EYCli.term.should_receive(:error)
+      subject.deploy(app)
+    end
+
+    context "when the app has only one environment" do
+      before do
+        @env = mock
+        app[:environments] = [@env]
+      end
+
+      it "uses the environment without asking" do
+        @env.should_receive(:deploy).and_return(Hashie::Mash.new)
+        EYCli.term.should_not_receive(:choose_resource)
+        subject.deploy(app)
+      end
+
+      it "shows the error list when the deploy fails" do
+        expected = Hashie::Mash.new({:errors => {:provision => 'Amazon cannot provision the instance'}})
+        @env.should_receive(:deploy).and_return(expected)
+        EYCli.term.should_receive(:print_errors).with(expected.errors, "Application deployment failed:")
+        subject.deploy(app)
+      end
+
+      it "shows the success message if it doesn't return any error" do
+        @env.should_receive(:deploy).and_return(Hashie::Mash.new)
+        EYCli.term.should_receive(:success)
+        subject.deploy(app)
+      end
+    end
+
+    context "when the app has more than one environment" do
+      it "shows the environments' list to let the user choose" do
+        env1 = EYCli::Model::Environment.new(:name => 'mock1')
+        env2 = mock
+        env2.should_receive(:name).and_return('mock2')
+        env2.should_receive(:deploy).and_return(Hashie::Mash.new)
+        app[:environments] = [env1, env2]
+        EYCli.term.should_receive(:choose_resource).and_return('mock2')
+        subject.deploy(app)
+      end
+    end
+  end
 end

@@ -13,4 +13,38 @@ describe EYCli::Model::Environment do
       path.should == 'apps/1/environments'
     end
   end
+
+  context "deploying" do
+    let(:app) { EYCli::Model::App.new(:id => 1, :name => 'fake_app') }
+    let(:env) do
+      EYCli::Model::Environment.new(
+        :id => 1,
+        :deployment_configurations => {
+          'fake_app' => {:migrate => {:perform => true, :command => 'rake db:migrate'}}
+      })
+    end
+
+    it "uses the default deployment options when the provided options are empty" do
+      stub_request(:post, 'http://example.com/apps/1/environments/1/deploy?deployment[migrate]=true&deployment[migrate_command]=rake db:migrate&deployment[ref]=HEAD').
+        to_return(:status => 201, :body => to_json(:deployment => {}))
+
+      env.deploy(app)
+    end
+
+    it "uses the provided options as deploy parameters" do
+      stub_request(:post, 'http://example.com/apps/1/environments/1/deploy?deployment[migrate]=false&deployment[migrate_command]=fake_migrate&deployment[ref]=master').
+        to_return(:status => 201, :body => to_json(:deployment => {}))
+
+      env.deploy(app, {:migrate => false, :migrate_command => 'fake_migrate', :ref => 'master'})
+    end
+
+    it "returns the body of the response when there is an error" do
+      expected_body = Hashie::Mash.new({:errors => {:provision => 'Amazon is down'}})
+      stub_request(:post, 'http://example.com/apps/1/environments/1/deploy?deployment[migrate]=true&deployment[migrate_command]=rake db:migrate&deployment[ref]=HEAD').
+        to_return(:status => 400, :body => to_json(expected_body))
+
+      response = env.deploy(app)
+      response.should == expected_body
+    end
+  end
 end
