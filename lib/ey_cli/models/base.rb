@@ -32,7 +32,7 @@ module EYCli
       end
 
       def self.create(hash)
-        path = create_path(hash)
+        path = create_collection_path(hash)
 
         response = EYCli.api.post(path, nil, hash)
         new response.body[class_name]
@@ -46,7 +46,7 @@ module EYCli
         super(val, duping)
       end
 
-      def self.create_path(hash)
+      def self.create_collection_path(hash)
         raise "Not implemented. Override this method for each model"
       end
     end
