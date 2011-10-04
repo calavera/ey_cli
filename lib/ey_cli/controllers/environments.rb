@@ -3,13 +3,16 @@ module EYCli
     class Environments
       def create(app, options = {})
         framework_env = options[:framework_env] || 'production'
-        env_name      = options[:env_name] || "#{app.name}_#{framework_env}"
+        env_name      = options[:name] || "#{app.name}_#{framework_env}"
 
-        env = EYCli::Model::Environment.create({
-          :app                         => app,
-          'environment[name]'          => env_name,
-          'environment[framework_env]' => framework_env
-        })
+        create_options = {
+          :app                               => app,
+          'environment[name]'                => env_name,
+          'environment[framework_env]'       => framework_env,
+          'app_deployment[new][domain_name]' => options[:url] || ''
+        }
+        create_options.merge! fetch_cluster_options(options[:cluster_configuration])
+        env = EYCli::Model::Environment.create(create_options)
 
         if env.errors?
           EYCli.term.print_errors(env.errors, "Environment creation failed:")
@@ -45,6 +48,19 @@ EOF
         else
           EYCli.term.say('Nothing deployed')
         end
+      end
+
+      def fetch_cluster_options(options)
+        return {} unless options
+        options = {
+          'cluster_configuration[configuration]' => options[:configuration] || 'cluster',
+          'cluster_configuration[ip_id]'         => 'new'
+        }
+        if options[:configuration] == 'custom'
+          options['cluster_configuration[app_server_count]'] = options[:app_instances] || 2
+          options['cluster_configuration[db_slave_count]']   = options[:db_instances] || 0
+        end
+        options
       end
     end
   end

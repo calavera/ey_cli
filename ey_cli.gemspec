@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency('json')
   s.add_dependency('multi_json')
   s.add_dependency('grit')
+  s.add_dependency('slop')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
