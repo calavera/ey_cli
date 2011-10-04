@@ -23,6 +23,7 @@ It takes its arguments(name, git repository and application type) from the base 
 Usage: ey_cli create_app
 
 Options:
+       --account name             Name of the account to add the application to.
        --name name                Name of the app.
        --git uri                  Git repository uri.
        --type type                Application type, either rack, rails2 or rails3.
@@ -45,6 +46,7 @@ EOF
 
         def parse(args)
           opts = Slop.parse(args, {:multiple_switches => false}) do
+            on :account, true
             on :name, true
             on :git, true
             on :type, true
