@@ -10,7 +10,7 @@ module EYCli
       def invoke
         account = @accounts.fetch_account(options[:account]) if options[:account]
         app = @apps.fetch_app(account, {:app_name => options[:app]})
-        @environments.create(app, fill_create_env_options)
+        @environments.create(app, fill_create_env_options(options))
       end
 
       def help
@@ -23,7 +23,7 @@ Options:
        --app name                 Name of the app to create the environment for.
        --name name                Name of the environment.
        --framework_env env        Type of the environment (production, staging...).
-       --url                      Domain name for the app. It accepts comma-separated values.
+       --url url                  Domain name for the app. It accepts comma-separated values.
        --app_instances number     Number of application instances.
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
@@ -34,7 +34,7 @@ EOF
         EnvParser.new
       end
 
-      def fill_create_env_options
+      def fill_create_env_options(options)
         opts = {:name => options[:name], :framework_env => options[:framework_env]}
 
         if options[:app_instances] || options[:db_instances] || options[:solo]

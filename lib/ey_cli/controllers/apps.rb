@@ -3,13 +3,13 @@ module EYCli
     class Apps
       include EYCli::GitUtils
 
-      def create(account, base = Dir.pwd)
+      def create(account, base = Dir.pwd, options = {})
         if git_repository?(base)
           app = EYCli::Model::App.create({
             :account               => account,
-            'app[name]'            => File.basename(base),
-            'app[app_type_id]'     => fetch_type(base).to_s,
-            'app[repository_uri]'  => fetch_repository(base)
+            'app[name]'            => options[:name] || File.basename(base),
+            'app[app_type_id]'     => options[:type] || fetch_type(base).to_s,
+            'app[repository_uri]'  => options[:git]  || fetch_repository(base)
           })
 
           if app.errors?
