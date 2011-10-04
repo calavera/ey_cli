@@ -46,6 +46,7 @@ Currently available commands:
 
   Applications
     create_app                   Create a new application. It takes the information from the current directory.
+    show                         Show information and status of an application.
 
   Environments
     create_env                   Create a new environment for an application.

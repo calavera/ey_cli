@@ -3,7 +3,7 @@ module EYCli
     attr_reader :commands
     def initialize
       @commands = {}
-      register_command :accounts, :console, :create_app, :create_env, :deploy, :help
+      register_command :accounts, :console, :create_app, :create_env, :deploy, :help, :show
     end
 
     def register_command(*names)
