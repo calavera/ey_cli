@@ -86,13 +86,13 @@ describe EYCli::Model::Base do
         to_return(:body => body, :status => 200)
     end
 
-    it "returns the elemnet if it finds it by name" do
+    it "returns the element if it finds it by name" do
       mock = BaseMock.find_by_name 'foo'
       mock.should == @expected
     end
 
-    it "raises an error when the element is not found" do
-      lambda { BaseMock.find_by_name('bar') }.should raise_error(Faraday::Error::ResourceNotFound)
+    it "returns nil when the element is not found" do
+      BaseMock.find_by_name('bar').should be_nil
     end
   end
 end

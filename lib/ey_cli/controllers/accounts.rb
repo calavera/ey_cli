@@ -4,7 +4,7 @@ module EYCli
       def fetch_account(name = nil)
         accounts = fetch_accounts
         if name
-          EYCli::Model::Account.find_by_name(name, accounts) rescue nil
+          EYCli::Model::Account.find_by_name(name, accounts)
         else
           return accounts.first if accounts.empty? || accounts.size == 1
 
