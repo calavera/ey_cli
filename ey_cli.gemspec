@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'ey_cli'
   s.version           = '0.1.0'
-  s.date              = '2011-10-03'
+  s.date              = '2011-10-04'
   s.rubyforge_project = 'ey_cli'
 
   ## Make sure your summary is short. The description may be as long
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
     lib/ey_cli/commands/create_env.rb
     lib/ey_cli/commands/deploy.rb
     lib/ey_cli/commands/help.rb
+    lib/ey_cli/commands/show.rb
     lib/ey_cli/controllers/accounts.rb
     lib/ey_cli/controllers/apps.rb
     lib/ey_cli/controllers/environments.rb
