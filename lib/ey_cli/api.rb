@@ -8,6 +8,7 @@ module EYCli
 
     def initialize(endpoint = nil)
       @endpoint = endpoint || 'https://cloud.engineyard.com/api/v2/'
+      @auth_token = read_token || fetch_token
     end
 
     def read_token(file = nil)
@@ -72,11 +73,15 @@ module EYCli
         req.params.merge! params
         req.headers.merge! headers
 
-       if auth
-          req.headers["X-EY-Cloud-Token"] = read_token || fetch_token
-        end
+        req.headers["X-EY-Cloud-Token"] = @auth_token if auth
         req.body = http_body if http_body
       end
+    rescue Faraday::Error::ClientError => e
+      raise e unless e.response[:status] == 401
+      @auth_token = fetch_token if auth
+      params[:method] = http_method
+      params[:body]   = http_body
+      retry
     end
 
     def connection
