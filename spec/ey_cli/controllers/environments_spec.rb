@@ -8,7 +8,7 @@ describe EYCli::Controller::Environments do
       {
         :app                         => app,
         'environment[name]'          => "#{app.name}_production",
-        'environment[framework_env]' => 'production'
+        'environment[framework_env]' => 'production',
       }
     end
 
@@ -45,7 +45,7 @@ describe EYCli::Controller::Environments do
       EYCli::Model::Environment.should_receive(:create).with(params).and_return(env)
       EYCli.term.should_receive(:success)
 
-      response = subject.create(app, {:env_name => 'fake_environment_name'})
+      response = subject.create(app, {:name => 'fake_environment_name'})
       response.should == env
     end
   end

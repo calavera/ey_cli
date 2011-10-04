@@ -8,9 +8,9 @@ module EYCli
         create_options = {
           :app                               => app,
           'environment[name]'                => env_name,
-          'environment[framework_env]'       => framework_env,
-          'app_deployment[new][domain_name]' => options[:url] || ''
+          'environment[framework_env]'       => framework_env
         }
+        create_options['app_deployment[new][domain_name]'] = options[:url] if options[:url]
         create_options.merge! fetch_cluster_options(options[:cluster_configuration])
         env = EYCli::Model::Environment.create(create_options)
 
