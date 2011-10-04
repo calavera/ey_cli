@@ -57,7 +57,7 @@ EOF
       class ShowParser
         def parse(args)
           name = args.empty? ? nil : args.shift.downcase
-          {:app_name => args}
+          {:app_name => name}
         end
       end
     end
