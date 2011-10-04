@@ -8,7 +8,6 @@ module EYCli
 
     def initialize(endpoint = nil)
       @endpoint = endpoint || 'https://cloud.engineyard.com/api/v2/'
-      @auth_token = read_token || fetch_token
     end
 
     def read_token(file = nil)
@@ -67,6 +66,7 @@ module EYCli
     def request(path, params = {}, headers = {}, auth = true)
       http_method = params.delete(:method).to_s.downcase
       http_body   = params.delete(:body)
+      @auth_token ||= read_token || fetch_token if auth
 
       connection.send(http_method) do |req|
         req.path = path
