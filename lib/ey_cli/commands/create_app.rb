@@ -11,7 +11,7 @@ module EYCli
         account = @accounts.fetch_account(options.delete(:account))
         app = @apps.create(account, Dir.pwd, options)
         if app && !options[:no_env]
-          @envs.create(app, @envs.fill_create_env_options(options))
+          @envs.create(app, CreateEnv::EnvParser.new.fill_create_env_options(options))
         end
         app
       end

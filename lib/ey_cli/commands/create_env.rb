@@ -10,7 +10,7 @@ module EYCli
       def invoke
         account = @accounts.fetch_account(options[:account]) if options[:account]
         app = @apps.fetch_app(account, {:app_name => options[:app]})
-        @environments.create(app, fill_create_env_options(options))
+        @environments.create(app, options_parser.fill_create_env_options(options))
       end
 
       def help
@@ -35,30 +35,6 @@ EOF
         EnvParser.new
       end
 
-      def fill_create_env_options(options)
-        opts = {:name => options[:name], :framework_env => options[:framework_env]}
-        if options[:stack]
-          case options[:stack].to_sym
-          when :passenger then options[:stack] = 'nginx_passenger3'
-          when :unicorn   then options[:stack] = 'nginx_unicorn'
-          when :trinidad  then options[:ruby_version] = 'JRuby'
-          end
-        end
-
-        if options[:app_instances] || options[:db_instances] || options[:solo]
-          cluster_conf = options.dup
-          if options[:solo]
-            EYCli.term.say('~> creating solo environment, ignoring instance numbers')
-            cluster_conf[:configuration] = 'single'
-          else
-            cluster_conf[:configuration]    = 'custom'
-          end
-
-          opts[:cluster_configuration] = cluster_conf
-        end
-
-        opts
-      end
 
       class EnvParser
         require 'slop'
@@ -76,6 +52,31 @@ EOF
             on :stack, true, :matches => /passenger|unicorn|trinidad/
           end
           opts.to_hash
+        end
+
+        def fill_create_env_options(options)
+          opts = {:name => options[:name], :framework_env => options[:framework_env]}
+          if options[:stack]
+            case options[:stack].to_sym
+            when :passenger then options[:stack] = 'nginx_passenger3'
+            when :unicorn   then options[:stack] = 'nginx_unicorn'
+            when :trinidad  then options[:ruby_version] = 'JRuby'
+            end
+          end
+
+          if options[:app_instances] || options[:db_instances] || options[:solo]
+            cluster_conf = options.dup
+            if options[:solo]
+              EYCli.term.say('~> creating solo environment, ignoring instance numbers')
+              cluster_conf[:configuration] = 'single'
+            else
+              cluster_conf[:configuration]    = 'custom'
+            end
+
+            opts[:cluster_configuration] = cluster_conf
+          end
+
+          opts
         end
       end
     end
