@@ -54,7 +54,7 @@ EOF
       def fetch_cluster_options(options)
         return {} unless options
         cluster = {
-          'cluster_configuration[configuration]' => options[:configuration] || 'cluster',
+          'cluster_configuration[configuration]' => options[:configuration],
           'cluster_configuration[ip_id]'         => 'new'
         }
         if options[:configuration] == 'custom'

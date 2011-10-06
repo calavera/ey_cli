@@ -74,6 +74,8 @@ EOF
             end
 
             opts[:cluster_configuration] = cluster_conf
+          else
+            opts[:cluster_configuration] = {:configuration => 'cluster'}
           end
 
           opts
