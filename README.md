@@ -1,5 +1,7 @@
 # ey_cli
 
+[![Build Status](https://secure.travis-ci.org/calavera/ey_cli.png)](http://travis-ci.org/calavera/ey_cli)
+
 An alternative command line interface for Engine Yard Cloud.
 
 Still in early development.
