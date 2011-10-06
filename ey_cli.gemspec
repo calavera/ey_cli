@@ -49,7 +49,6 @@ Gem::Specification.new do |s|
   s.add_dependency('hashie')
   s.add_dependency('json')
   s.add_dependency('multi_json')
-  s.add_dependency('grit')
   s.add_dependency('slop')
 
   ## List your development dependencies here. Development dependencies are
