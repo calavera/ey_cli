@@ -27,6 +27,7 @@ Options:
        --app_instances number     Number of application instances.
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
+       --stack                    App server stack, either passenger, unicorn or trinidad.
 EOF
       end
 
@@ -36,6 +37,13 @@ EOF
 
       def fill_create_env_options(options)
         opts = {:name => options[:name], :framework_env => options[:framework_env]}
+        if options[:stack]
+          case options[:stack].to_sym
+          when :passenger then options[:stack] = 'nginx_passenger3'
+          when :unicorn   then options[:stack] = 'nginx_unicorn'
+          when :trinidad  then options[:ruby_version] = 'JRuby'
+          end
+        end
 
         if options[:app_instances] || options[:db_instances] || options[:solo]
           cluster_conf = options.dup
@@ -65,6 +73,7 @@ EOF
             on :db_instances, true, :as => :integer
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
+            on :stack, true, :matches => /passenger|unicorn|trinidad/
           end
           opts.to_hash
         end

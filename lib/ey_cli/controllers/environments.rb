@@ -10,7 +10,8 @@ module EYCli
           'environment[name]'                => env_name,
           'environment[framework_env]'       => framework_env
         }
-        create_options['app_deployment[new][domain_name]'] = options[:url] if options[:url]
+        create_options.merge! fetch_custom_arguments(options)
+
         create_options.merge! fetch_cluster_options(options[:cluster_configuration])
         env = EYCli::Model::Environment.create(create_options)
 
@@ -52,15 +53,23 @@ EOF
 
       def fetch_cluster_options(options)
         return {} unless options
-        options = {
+        cluster = {
           'cluster_configuration[configuration]' => options[:configuration] || 'cluster',
           'cluster_configuration[ip_id]'         => 'new'
         }
         if options[:configuration] == 'custom'
-          options['cluster_configuration[app_server_count]'] = options[:app_instances] || 2
-          options['cluster_configuration[db_slave_count]']   = options[:db_instances] || 0
+          cluster['cluster_configuration[app_server_count]'] = options[:app_instances] || 2
+          cluster['cluster_configuration[db_slave_count]']   = options[:db_instances] || 0
         end
-        options
+        cluster
+      end
+
+      def fetch_custom_arguments(options)
+        custom = {}
+        custom['app_deployment[new][domain_name]'] = options[:url] if options[:url]
+        custom['environment[app_server_stack_name]'] = options[:stack] if options[:stack]
+        custom['environment[ruby_version]'] = options[:ruby_version] if options[:ruby_version]
+        custom
       end
     end
   end
