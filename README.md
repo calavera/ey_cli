@@ -18,13 +18,29 @@ gem install ey_cli
 ey_cli command [args]
 ```
 
-More information available about the implemented commands if you run:
+More information available about the available commands if you run:
 
 ```
 ey_cli help
 ```
 
-(which is also a command, btw)
+## Examples
+
+- How to create a new application:
+
+```
+ey_cli create_app
+```
+
+  That's all that you need if you're under the application directory and this already is in a git repository. It also runs a first deploy for free.
+
+- How to perform a new deploy:
+
+```
+ey_cli deploy
+```
+
+  That's all, if the CLI doesn't know what you want to deploy it politely asks you.
 
 ## Motivation
 
