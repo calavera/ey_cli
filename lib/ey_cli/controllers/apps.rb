@@ -4,7 +4,7 @@ module EYCli
       include EYCli::GitUtils
 
       def create(account, base = Dir.pwd, options = {})
-        if git_repository?(base)
+        if git_repository?(base) || options[:git]
           app = EYCli::Model::App.create({
             :account               => account,
             'app[name]'            => options[:name] || File.basename(base),
