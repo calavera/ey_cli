@@ -60,6 +60,8 @@ EOF
         if options[:configuration] == 'custom'
           cluster['cluster_configuration[app_server_count]'] = options[:app_instances] || 2
           cluster['cluster_configuration[db_slave_count]']   = options[:db_instances] || 0
+          cluster['cluster_configuration[instance_size]']    = options[:app_size] if options[:app_size]
+          cluster['cluster_configuration[db_instance_size]'] = options[:db_size] if options[:db_size]
         end
         cluster
       end

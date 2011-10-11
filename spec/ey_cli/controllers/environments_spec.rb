@@ -48,6 +48,10 @@ describe EYCli::Controller::Environments do
       response = subject.create(app, {:name => 'fake_environment_name'})
       response.should == env
     end
+
+    context "with cluster options" do
+      it "is pending"
+    end
   end
 
   context "deploying an environment" do

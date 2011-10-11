@@ -60,6 +60,12 @@ EOF
             on :solo, false, :default => false
             on :stack, true, :matches => /passenger|unicorn|trinidad/
             on :no_env, false, :default => false
+            on :app_size, true do |size|
+              CreateEnv::EnvParser.check_instance_size(size)
+            end
+            on :db_size, true do |size|
+              CreateEnv::EnvParser.check_instance_size(size)
+            end
           end
           opts.to_hash
         end

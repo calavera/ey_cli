@@ -50,8 +50,27 @@ EOF
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
             on :stack, true, :matches => /passenger|unicorn|trinidad/
+            on :app_size, true do |size|
+              EnvParser.check_instance_size(size)
+            end
+            on :db_size, true do |size|
+              EnvParser.check_instance_size(size)
+            end
           end
           opts.to_hash
+        end
+
+        def self.check_instance_size(size)
+          sizes_list = [
+            'm1.small', 'm1.large', 'm1.xlarge',
+            'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge',
+            'c1.medium', 'c1.xlarge'
+          ]
+          unless sizes_list.include?(size)
+            EYCli.term.say("Unknown instance size: #{size}. Please, use one of the following list:")
+            EYCli.term.say(sizes_list.inspect)
+            exit 1
+          end
         end
 
         def fill_create_env_options(options)
@@ -64,7 +83,8 @@ EOF
             end
           end
 
-          if options[:app_instances] || options[:db_instances] || options[:solo]
+          if options[:app_instances] || options[:db_instances] || options[:solo] ||
+             options[:app_size] || options[:db_size]
             cluster_conf = options.dup
             if options[:solo]
               EYCli.term.say('~> creating solo environment, ignoring instance numbers')
