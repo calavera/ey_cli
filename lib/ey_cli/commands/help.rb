@@ -45,6 +45,7 @@ Currently available commands:
     help                         Show commands information.
 
   Applications
+    apps                         List the applications associated to a user.
     create_app                   Create a new application. It takes the information from the current directory.
     show                         Show information and status of an application.
 

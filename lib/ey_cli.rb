@@ -24,6 +24,7 @@ module EYCli
 
   require 'ey_cli/commands/base'
   require 'ey_cli/commands/accounts'
+  require 'ey_cli/commands/apps'
   require 'ey_cli/commands/console'
   require 'ey_cli/commands/create_app'
   require 'ey_cli/commands/create_env'
