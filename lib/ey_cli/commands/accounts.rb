@@ -17,7 +17,6 @@ EOF
 
       def help
         <<-EOF
-
 Usage: ey_cli accounts
 Note: it shows the accounts that belong to you and also the ones that you are collaborating with.
 EOF

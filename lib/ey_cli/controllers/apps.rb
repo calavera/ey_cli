@@ -15,7 +15,7 @@ module EYCli
           if app.errors?
             EYCli.term.print_errors(app.errors, "App creation failed:")
           else
-            EYCli.term.success("App created successfully")
+            EYCli.term.success("App '#{app.name}' created successfully")
           end
           app
         else

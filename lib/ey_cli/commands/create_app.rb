@@ -10,8 +10,9 @@ module EYCli
       def invoke
         account = @accounts.fetch_account(options.delete(:account))
         app = @apps.create(account, Dir.pwd, options)
-        if app && !options[:no_env]
-          @envs.create(app, CreateEnv::EnvParser.new.fill_create_env_options(options))
+        if app
+          @envs.create(app, CreateEnv::EnvParser.new.fill_create_env_options(options)) unless options[:no_env]
+          EYCli.term.say("You can run now 'ey_cli show #{app.name}' to know the status of the application")
         end
         app
       end

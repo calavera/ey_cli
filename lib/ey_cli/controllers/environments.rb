@@ -18,7 +18,7 @@ module EYCli
         if env.errors?
           EYCli.term.print_errors(env.errors, "Environment creation failed:")
         else
-          EYCli.term.success('Environment created successfully')
+          EYCli.term.success("Environment '#{env.name}' created successfully")
         end
         env
       end
