@@ -47,8 +47,8 @@ module EYCli
       end
     end
 
-    def ask(prompt, protected_filed = false)
-      if protected_filed
+    def ask(prompt, protected_field = false)
+      if protected_field
         terminal.ask(prompt) {|q| q.echo = '*'}
       else
         terminal.ask(prompt) {|q| q.readline = true}
