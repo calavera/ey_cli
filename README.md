@@ -42,6 +42,22 @@ ey_cli deploy
 
   That's all, if the CLI doesn't know what you want to deploy it politely asks you.
 
+## Avaliable commands
+
+  General info
+    accounts                     List the accounts associated to a user.
+    console                      Start an interactive session to use ey_cli.
+    help                         Show commands information.
+
+  Applications
+    apps                         List the applications associated to a user.
+    create_app                   Create a new application. It takes the information from the current directory.
+    show                         Show information and status of an application.
+
+  Environments
+    create_env                   Create a new environment for an application.
+    deploy                       Run a deploy for an application.
+
 ## Motivation
 
 engineyard gem is strongly coupled to Thor, and I don't like the
