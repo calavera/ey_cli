@@ -9,7 +9,7 @@ module EYCli
         app = @apps.fetch_app(nil, options)
         if app
           EYCli.term.say info(app)
-          EYCli.term.say status(app)
+          EYCli.term.say(status(app)) if app.environments
         end
       end
 
@@ -30,13 +30,16 @@ module EYCli
         - environment: #{env.framework_env}
         - stack:       #{env.app_server_stack_name}
         - status:      #{env.instance_status}}
-          status << %Q{
-        - instances:}
-          env.instances.each do |instance|
+
+          if env.instances
             status << %Q{
-           + #{instance.role}:
-              - Amazon ID: #{instance.amazon_id}
-              - status:    #{instance.status}}
+          - instances:}
+            env.instances.each do |instance|
+              status << %Q{
+             + #{instance.role}:
+                - Amazon ID: #{instance.amazon_id}
+                - status:    #{instance.status}}
+            end
           end
         end
         status
