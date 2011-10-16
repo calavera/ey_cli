@@ -33,12 +33,12 @@ module EYCli
 
           if env.instances
             status << %Q{
-          - instances:}
+        - instances:}
             env.instances.each do |instance|
               status << %Q{
-             + #{instance.role}:
-                - Amazon ID: #{instance.amazon_id}
-                - status:    #{instance.status}}
+           + #{instance.role}:
+              - Amazon ID: #{instance.amazon_id}
+              - status:    #{instance.status}}
             end
           end
         end
