@@ -31,9 +31,23 @@ module EYCli
         - stack:       #{env.app_server_stack_name}
         - status:      #{env.instance_status}}
 
+          if deploy = env.last_deployment(app)
+            status << %Q{
+        + last deploy info:
+           - commit:          #{deploy.commit}
+           - created at:      #{deploy.created_at}
+           - finished at:     #{deploy.finished_at}
+           - migrated:        #{deploy.migrate}}
+           if deploy.migrate
+             status << %Q{
+           - migrate command: #{deploy.migrate_command}}
+           end
+          end
+
           if env.instances
             status << %Q{
-        - instances:}
+
+        - Status per instance:}
             env.instances.each do |instance|
               status << %Q{
            + #{instance.role}:

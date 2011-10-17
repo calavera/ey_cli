@@ -1,3 +1,8 @@
+## 0.1.2 (10-17-2011)
+
+- Fix git uri label.
+- Show latest deployment information.
+
 ## 0.1.1 (10-16-2011)
 
 - Fix some log messages.

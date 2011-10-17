@@ -25,7 +25,11 @@ module EYCli
       end
 
       def deploy_path(app)
-        "#{self.class.resolve_child_path([app.id, id])}/deployments/deploy"
+        Deployment.deploy_path(app, self)
+      end
+
+      def last_deployment(app)
+        Deployment.last_deployment(app, self)
       end
     end
   end

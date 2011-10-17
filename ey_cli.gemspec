@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'ey_cli'
-  s.version           = '0.1.1'
-  s.date              = '2011-10-16'
+  s.version           = '0.1.2'
+  s.date              = '2011-10-17'
   s.rubyforge_project = 'ey_cli'
 
   ## Make sure your summary is short. The description may be as long
@@ -91,6 +91,7 @@ Gem::Specification.new do |s|
     lib/ey_cli/models/account.rb
     lib/ey_cli/models/app.rb
     lib/ey_cli/models/base.rb
+    lib/ey_cli/models/deployment.rb
     lib/ey_cli/models/environment.rb
     lib/ey_cli/options_parser.rb
     lib/ey_cli/smarty_parser.rb

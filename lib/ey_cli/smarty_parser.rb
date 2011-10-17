@@ -20,6 +20,8 @@ module EYCli
           hash[key] = parse(value, EYCli::Model::App)
         when /environments?/
           hash[key] = parse(value, EYCli::Model::Environment)
+        when /deployments?/
+          hash[key] = parse(value, EYCli::Model::Deployment)
         else
           hash[key] = parse(value, Hashie::Mash)
         end

@@ -27,8 +27,15 @@ module EYCli
       end
 
       def self.resolve_child_path(args)
-        collection_path = base_path % args[0..-1]
-        "#{collection_path}/#{args.last}"
+        "#{collection_path(args[0..-1])}/#{args.last}"
+      end
+
+      def self.child_path(args)
+        resolve_child_path(args)
+      end
+
+      def self.collection_path(args)
+        base_path % args
       end
 
       def self.create(hash)
