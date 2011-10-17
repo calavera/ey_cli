@@ -28,6 +28,8 @@ Options:
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
        --stack                    App server stack, either passenger, unicorn or trinidad.
+       --app_size                 Size of the app instances.
+       --db_size                  Size of the db instances.
 EOF
       end
 
