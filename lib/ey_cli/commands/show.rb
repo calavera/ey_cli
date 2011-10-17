@@ -17,7 +17,7 @@ module EYCli
         %Q{
 #{app.name}:
   - Info:
-     + git repository: #{app.git_repository}}
+     + git repository: #{app.repository_uri}}
       end
 
       def status(app)
