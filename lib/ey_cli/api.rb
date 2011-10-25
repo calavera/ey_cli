@@ -68,6 +68,14 @@ module EYCli
       http_body   = params.delete(:body)
       @auth_token ||= read_token || fetch_token if auth
 
+      if ENV['EY_DEBUG']
+        puts %Q{-- DEBUG --
+     PATH : #{path}
+   PARAMS : #{params.inspect}
+  HEADERS : #{headers.inspect}
+}
+      end
+
       connection.send(http_method) do |req|
         req.path = path
         req.params.merge! params
