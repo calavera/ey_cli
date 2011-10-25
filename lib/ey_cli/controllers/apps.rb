@@ -24,15 +24,20 @@ module EYCli
       end
 
       def fetch_type(base)
-        if File.exist?(File.join(base, 'config.ru')) && File.exist?(File.join(base, 'config', 'environment.rb'))
+        type = if File.exist?(File.join(base, 'config.ru')) && File.exist?(File.join(base, 'config', 'environment.rb'))
           :rails3
         elsif File.exist?(File.join(base, 'config', 'environment.rb'))
           :rails2
         elsif File.exist?(File.join(base, 'config.ru'))
           :rack
+        elsif File.exist?(File.join(base, 'package.json'))
+          :nodejs
         else # Raise unkown application type?
           :rails3
         end
+
+        EYCli.term.say "~> Registering #{type} application"
+        type
       end
 
       def fetch_app(account = nil, options = {}, base = Dir.pwd)

@@ -76,7 +76,7 @@ EOF
         end
 
         def fill_create_env_options(options)
-          opts = {:name => options[:name], :framework_env => options[:framework_env]}
+          opts = {:name => (options[:env_name] || options[:name]), :framework_env => options[:framework_env]}
           if options[:stack]
             case options[:stack].to_sym
             when :passenger then options[:stack] = 'nginx_passenger3'
