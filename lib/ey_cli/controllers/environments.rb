@@ -24,19 +24,7 @@ module EYCli
       end
 
       def deploy(app, options = {})
-        if !app.environments? || app.environments.empty?
-          EYCli.term.error <<-EOF
-You don't have any environment associated to this application.
-Try running `ey_cli create_env' to create your first environment.
-EOF
-        elsif app.environments.size == 1
-          env = app.environments.first
-        else
-          name = EYCli.term.choose_resource(app.environments,
-                                            "I don't know which environment deploy on.",
-                                            "Please, select and environment")
-          env = EYCli::Model::Environment.find_by_name(name, app.environments)
-        end
+        env = fetch_environment(app, options)
 
         if env
           deploy = env.deploy(app, options)
@@ -72,6 +60,22 @@ EOF
         custom['environment[app_server_stack_name]'] = options[:stack] if options[:stack]
         custom['environment[ruby_version]'] = options[:ruby_version] if options[:ruby_version]
         custom
+      end
+
+      def fetch_environment(app, options = {})
+        if !app.environments? || app.environments.empty?
+          EYCli.term.error <<-EOF
+You don't have any environment associated to this application.
+Try running `ey_cli create_env' to create your first environment.
+EOF
+        elsif app.environments.size == 1
+          app.environments.first
+        else
+          name = EYCli.term.choose_resource(app.environments,
+                                            "I don't know which environment deploy on.",
+                                            "Please, select and environment")
+          EYCli::Model::Environment.find_by_name(name, app.environments)
+        end
       end
     end
   end

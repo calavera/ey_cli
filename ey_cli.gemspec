@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'ey_cli'
-  s.version           = '0.1.2'
-  s.date              = '2011-10-25'
+  s.version           = '0.2.0'
+  s.date              = '2011-11-17'
   s.rubyforge_project = 'ey_cli'
 
   ## Make sure your summary is short. The description may be as long
