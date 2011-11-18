@@ -1,3 +1,7 @@
+## 0.2.0 (11-18-2011)
+
+- Allow to deploy Node.js applications
+
 ## 0.1.2 (10-17-2011)
 
 - Fix git uri label.

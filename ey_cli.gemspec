@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'ey_cli'
   s.version           = '0.2.0'
-  s.date              = '2011-11-17'
+  s.date              = '2011-11-18'
   s.rubyforge_project = 'ey_cli'
 
   ## Make sure your summary is short. The description may be as long
