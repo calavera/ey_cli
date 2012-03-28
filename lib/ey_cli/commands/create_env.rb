@@ -51,7 +51,7 @@ EOF
             on :db_instances, true, :as => :integer
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
-            on :stack, true, :matches => /passenger|unicorn|trinidad/
+            on :stack, true, :matches => /passenger|unicorn|puma|thin|trinidad/
             on :app_size, true do |size|
               EnvParser.check_instance_size(size)
             end
