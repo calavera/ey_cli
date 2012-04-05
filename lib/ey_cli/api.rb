@@ -7,7 +7,7 @@ module EYCli
     attr_reader :endpoint
 
     def initialize(endpoint = nil)
-      @endpoint = endpoint || 'https://cloud.engineyard.com/api/v2/'
+      @endpoint = endpoint || ENV['EY_ENDPOINT'] || 'https://cloud.engineyard.com/api/v2/'
     end
 
     def read_token(file = nil)

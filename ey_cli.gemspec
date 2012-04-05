@@ -49,7 +49,7 @@ Gem::Specification.new do |s|
   s.add_dependency('hashie')
   s.add_dependency('json')
   s.add_dependency('multi_json')
-  s.add_dependency('slop')
+  s.add_dependency('slop', '2.4.4')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
