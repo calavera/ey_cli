@@ -1,3 +1,9 @@
+## 0.2.1 (12-04-09)
+
+- Force slop 2.4.4; as slow 3.0+ introduces a regression
+- Pass environment options thru correctly when booting an environment
+- 'show' displays IP address
+
 ## 0.2.0 (11-18-2011)
 
 - Allow to deploy Node.js applications
