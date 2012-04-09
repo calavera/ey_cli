@@ -1,5 +1,5 @@
 module EYCli
-  VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   require 'hashie/mash'
   require 'json'
