@@ -11,8 +11,13 @@ module EYCli
         account = @accounts.fetch_account(options.delete(:account))
         app = @apps.create(account, Dir.pwd, options)
         if app
-          @envs.create(app, CreateEnv::EnvParser.new.fill_create_env_options(options)) unless options[:no_env]
-          EYCli.term.say("You can run now 'ey_cli show #{app.name}' to know the status of the application")
+          env_parser = CreateEnv::EnvParser.new.fill_create_env_options(options)
+          if options[:no_env]
+            EYCli.term.say("Skipping creation of environment...")
+          else
+            environment = @envs.create(app, env_parser)
+            EYCli.term.say("You can run now 'ey_cli show #{app.name}' to know the status of the application")
+          end
         end
         app
       end
