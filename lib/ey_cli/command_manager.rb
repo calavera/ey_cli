@@ -16,6 +16,7 @@ module EYCli
       command_name = name.to_sym
       return nil unless commands.key?(command_name)
       commands[command_name] = load_command(command_name) unless commands[command_name]
+      commands[command_name]
     end
 
     def load_command(name)

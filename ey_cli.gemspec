@@ -49,14 +49,14 @@ Gem::Specification.new do |s|
   s.add_dependency('hashie')
   s.add_dependency('json')
   s.add_dependency('multi_json')
-  s.add_dependency('slop')
+  s.add_dependency('slop', '2.4.4')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
   s.add_development_dependency('rake', '~> 0.9')
   s.add_development_dependency('rspec')
   s.add_development_dependency('webmock')
-  s.add_development_dependency('fakefs')
+  s.add_development_dependency('fakefs', '~> 0.3.2')
 
   ## Leave this section as-is. It will be automatically generated from the
   ## contents of your Git repository via the gemspec task. DO NOT REMOVE
