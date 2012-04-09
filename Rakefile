@@ -64,7 +64,7 @@ end
 
 desc "release a new version of ey_cli, tag the version and push the gem"
 task :release => :build do
-  unless `git branch` =~ /^\* master$/
+  unless `git branch --no-color` =~ /^\* master$/
     puts "You must be on the master branch to release!"
     exit!
   end
