@@ -8,9 +8,11 @@ module EYCli
       end
 
       def invoke
-        account = @accounts.fetch_account(options[:account]) if options[:account]
-        app = @apps.fetch_app(account, {:app_name => options[:app]})
-        @environments.create(app, options_parser.fill_create_env_options(options))
+        account     = @accounts.fetch_account(options[:account]) if options[:account]
+        app         = @apps.fetch_app(account, {:app_name => options[:app]})
+        env_options = options_parser.fill_create_env_options(options)
+        
+        @environments.create(app, env_options)
       end
 
       def help
@@ -61,7 +63,7 @@ EOF
           end
           opts.to_hash
         end
-
+        
         def self.check_instance_size(size)
           sizes_list = [
             'm1.small', 'm1.large', 'm1.xlarge',
@@ -76,12 +78,18 @@ EOF
         end
 
         def fill_create_env_options(options)
-          opts = {:name => (options[:env_name] || options[:name]), :framework_env => options[:framework_env]}
-          if options[:stack]
-            case options[:stack].to_sym
-            when :passenger then options[:stack] = 'nginx_passenger3'
-            when :unicorn   then options[:stack] = 'nginx_unicorn'
-            when :trinidad  then options[:ruby_version] = 'JRuby'
+          opts = {
+            :name          => (options[:env_name] || options[:name]), 
+            :framework_env => options[:framework_env],
+            :stack         => options[:stack],
+            :ruby_version  => options[:ruby_version]
+          }
+          
+          if opts[:stack]
+            case opts[:stack].to_sym
+            when :passenger then opts[:stack] = 'nginx_passenger3'
+            when :unicorn   then opts[:stack] = 'nginx_unicorn'
+            when :trinidad  then opts[:ruby_version] = 'JRuby'
             end
           end
 
@@ -99,7 +107,7 @@ EOF
           else
             opts[:cluster_configuration] = {:configuration => 'cluster'}
           end
-
+          
           opts
         end
       end
