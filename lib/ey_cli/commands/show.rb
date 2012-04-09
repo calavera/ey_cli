@@ -27,9 +27,10 @@ module EYCli
         app.environments.each do |env|
           status << %Q{
      + #{env.name}:
-        - environment: #{env.framework_env}
-        - stack:       #{env.app_server_stack_name}
-        - status:      #{env.instance_status}}
+        - environment:  #{env.framework_env}
+        - IP address:   #{env.load_balancer_ip_address}
+        - stack:        #{env.app_server_stack_name}
+        - status:       #{env.instance_status}}
 
           if deploy = env.last_deployment(app)
             status << %Q{
