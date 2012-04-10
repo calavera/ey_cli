@@ -85,7 +85,8 @@ EOF
             :framework_env => options[:framework_env],
             :stack         => options[:stack],
             :db_stack      => options[:db_stack],
-            :ruby_version  => options[:ruby_version]
+            :ruby_version  => options[:ruby_version],
+            :keypairs      => EYCli::Model::Keypair.all.map(&:id) # FIXME - causes "App already exists" error?!
           }
           
           if opts[:stack]

@@ -18,6 +18,7 @@ module EYCli
   require 'ey_cli/models/app'
   require 'ey_cli/models/deployment'
   require 'ey_cli/models/environment'
+  require 'ey_cli/models/keypair'
 
   require 'ey_cli/controllers/accounts'
   require 'ey_cli/controllers/apps'
