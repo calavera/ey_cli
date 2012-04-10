@@ -29,7 +29,6 @@ module EYCli
      + #{env.name}:
         - environment:  #{env.framework_env}
         - app stack:    #{env.app_server_stack_name}
-        - DB stack:     #{env.db_stack_name}
         - IP address:   #{env.load_balancer_ip_address}
         - status:       #{env.instance_status}}
 
