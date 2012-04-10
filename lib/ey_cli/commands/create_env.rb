@@ -97,10 +97,10 @@ EOF
              options[:app_size] || options[:db_size]
             cluster_conf = options.dup
             if options[:solo]
-              EYCli.term.say('~> creating solo environment, ignoring instance numbers')
+              EYCli.term.say('~> creating solo environment')
               cluster_conf[:configuration] = 'single'
             else
-              cluster_conf[:configuration]    = 'custom'
+              cluster_conf[:configuration] = 'custom'
             end
 
             opts[:cluster_configuration] = cluster_conf
