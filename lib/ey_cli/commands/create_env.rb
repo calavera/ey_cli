@@ -30,6 +30,7 @@ Options:
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
        --stack                    App server stack, either passenger, unicorn or trinidad.
+       --db_stack                 DB stack, either mysql/mysql5_0, mysql5_5, or postgresql/postgres9_1
        --app_size                 Size of the app instances.
        --db_size                  Size of the db instances.
 EOF
@@ -54,6 +55,7 @@ EOF
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
             on :stack, true, :matches => /passenger|unicorn|puma|thin|trinidad/
+            on :db_stack, true, :matches => /mysql|postgresql/
             on :app_size, true do |size|
               EnvParser.check_instance_size(size)
             end
@@ -78,10 +80,11 @@ EOF
         end
 
         def fill_create_env_options(options)
-          opts = {
+          opts             = {
             :name          => (options[:env_name] || options[:name]), 
             :framework_env => options[:framework_env],
             :stack         => options[:stack],
+            :db_stack      => options[:db_stack],
             :ruby_version  => options[:ruby_version]
           }
           
@@ -90,6 +93,13 @@ EOF
             when :passenger then opts[:stack] = 'nginx_passenger3'
             when :unicorn   then opts[:stack] = 'nginx_unicorn'
             when :trinidad  then opts[:ruby_version] = 'JRuby'
+            end
+          end
+          
+          if opts[:db_stack]
+            case opts[:db_stack].to_sym
+            when :mysql       then opts[:db_stack] = 'mysql5_0'
+            when :postgresql  then opts[:db_stack] = 'postgres9_1'
             end
           end
 

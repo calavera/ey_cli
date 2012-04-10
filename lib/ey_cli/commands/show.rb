@@ -28,8 +28,9 @@ module EYCli
           status << %Q{
      + #{env.name}:
         - environment:  #{env.framework_env}
+        - app stack:    #{env.app_server_stack_name}
+        - DB stack:     #{env.db_stack_name}
         - IP address:   #{env.load_balancer_ip_address}
-        - stack:        #{env.app_server_stack_name}
         - status:       #{env.instance_status}}
 
           if deploy = env.last_deployment(app)

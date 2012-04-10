@@ -58,6 +58,7 @@ module EYCli
         custom = {}
         custom['app_deployment[new][domain_name]'] = options[:url] if options[:url]
         custom['environment[app_server_stack_name]'] = options[:stack] if options[:stack]
+        custom['environment[db_stack_name]'] = options[:db_stack] if options[:db_stack]
         custom['environment[ruby_version]'] = options[:ruby_version] if options[:ruby_version]
         custom
       end

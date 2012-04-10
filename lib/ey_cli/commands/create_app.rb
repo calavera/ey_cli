@@ -40,6 +40,7 @@ Options:
        --db_instances number      Number of database slaves.
        --solo                     A single instance for application and database.
        --stack                    App server stack, either passenger, unicorn or trinidad.
+       --db_stack                 DB stack, either mysql/mysql5_0, mysql5_5, or postgresql/postgres9_1
        --no_env                   Prevent to not create a default environment.
        --app_size                 Size of the app instances.
        --db_size                  Size of the db instances.
@@ -67,6 +68,7 @@ EOF
             #on :util_instances, true, :as => :integer # FIXME: utils instances are handled differently
             on :solo, false, :default => false
             on :stack, true, :matches => /passenger|unicorn|puma|thin|trinidad/
+            on :db_stack, true, :matches => /mysql|postgresql/
             on :no_env, false, :default => false
             on :app_size, true do |size|
               CreateEnv::EnvParser.check_instance_size(size)
