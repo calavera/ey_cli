@@ -1,3 +1,7 @@
+## 0.3.0 (12-04-09)
+
+- `--db_stack` option available for `create_env` and `create_app`
+
 ## 0.2.1 (12-04-09)
 
 - Force slop 2.4.4; as slow 3.0+ introduces a regression
